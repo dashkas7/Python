@@ -12,11 +12,14 @@ sock.listen()
 
 print("--start--")
 
-while 1:
-    conn, addr = sock.accept()
-    print (conn,addr)
-    data = conn.recv(1024).decode()
-    print(data)
-    conn.send()
+conn, addr = sock.accept()
+print ('Подключился клиент:', addr)
 
-print ("--end--")
+data = conn.recv(1024).decode()
+print("Сообщение от клиента:", data)
+        
+conn.send(data.encode("utf-8"))
+conn.close()
+
+print ("--end--") 
+sock.close()
