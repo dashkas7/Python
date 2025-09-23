@@ -14,3 +14,10 @@
 
 
 """
+
+import socket
+HOST = ('127.0.0.1', 8888)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+socket.bind(HOST)
+sock
