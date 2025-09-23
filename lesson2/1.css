@@ -1,0 +1,40 @@
+/* Общие стили для всей страницы */
+body {
+    background-color: #f4f4f9;   /* светлый фон */
+    font-family: Arial, sans-serif; /* шрифт */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Заголовок */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 36px;
+}
+
+/* Параграф */
+p {
+    color: #34495e;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Кнопка */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
