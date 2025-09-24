@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Регистрация</title>
+  <style>
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    form {
+      display: grid;
+      gap: 10px;
+      max-width: 360px;
+      margin-bottom: 30px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button {
+      background: #0078d7;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    .hint {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      margin: 5px 0;
+    }
+    a {
+      color: #0078d7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Регистрация</h1>
+  <p class="hint">
+    Эта страница отправляет запросы на сервер через упрощённый HTTP.
+    Данные сохраняются в <code>users.json</code> на сервере.
+  </p>
+
+  <form method="get" action="/register">
+    <h2>Регистрация (GET)</h2>
+    <label>Логин (>=6, латиница/цифры)
+      <input name="login" required minlength="6" pattern="[A-Za-z0-9]+">
+    </label>
+    <label>Пароль (>=8, хотя бы 1 цифра)
+      <input name="password" type="password" required minlength="8">
+    </label>
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+
+  <form method="post" action="/register">
+    <h2>Регистрация (POST)</h2>
+    <label>Логин
+      <input name="login" required minlength="6" pattern="[A-Za-z0-9]+">
+    </label>
+    <label>Пароль
+      <input name="password" type="password" required minlength="8">
+    </label>
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+
+  <h2>Проверка маршрутов</h2>
+  <ul>
+    <li><a href="/test/42">/test/42</a></li>
+    <li><a href="/message/alice/hello%20world/">/message/alice/hello world/</a></li>
+  </ul>
+</body>
+</html>

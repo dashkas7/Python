@@ -17,36 +17,52 @@
 
 import socket
 
-# адрес сервера (замените на IP сервера в вашей сети)
-SERVER_HOST = "127.0.0.1"
-SERVER_PORT = 7777
+HOST = "127.0.0.1" # замените на IP сервера в вашей сети (напр., 192.168.1.23)
+PORT = 8080
 
-def send_message(message: str):
-    """Отправка строки на сервер и получение ответа"""
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((SERVER_HOST, SERVER_PORT))
-    sock.send(message.encode("utf-8"))
-    response = sock.recv(1024).decode("utf-8")
-    sock.close()
-    return response
+
+
+
+def send_raw(line: str) -> str:
+    with socket.create_connection((HOST, PORT), timeout=5) as s:
+        s.sendall(line.encode('utf-8'))
+        s.shutdown(socket.SHUT_WR)
+        data = s.recv(65536)
+        return data.decode('utf-8', errors='replace')
+
+
+def make_reg(login: str, password: str) -> None:
+    cmd = f"command:reg; login:{login}; password:{password}"
+    print(send_raw(cmd))
+
+
+def make_signin(login: str, password: str) -> None:
+    cmd = f"command:signin; login:{login}; password:{password}"
+    print(send_raw(cmd))
+
+
+
+def main():
+    print("Уважаемый клиент. Команды: reg <login> <password> | signin <login> <password> | exit")
+    while True:
+        try:
+            parts = input("> ").strip().split()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            break
+        if not parts:
+            continue
+        if parts[0] == 'exit':
+            break
+        if parts[0] == 'reg' and len(parts) >= 3:
+            make_reg(parts[1], parts[2])
+            continue
+        if parts[0] == 'signin' and len(parts) >= 3:
+            make_signin(parts[1], parts[2])
+            continue
+        print("Неизвестная команда. Пример: reg user123 passw0rd")
+
+
 
 if __name__ == "__main__":
-    # регистрируем пользователей
-    users = [
-        ("student1", "password123"),
-        ("student2", "mypassword9"),
-        ("student3", "qwerty2024"),
-    ]
-
-    for login, password in users:
-        msg = f"command:reg; login:{login}; password:{password}"
-        print("Отправляем:", msg)
-        print("Ответ сервера:", send_message(msg))
-
-    print("-" * 40)
-
-    # вход пользователей
-    for login, password in users:
-        msg = f"command:signin; login:{login}; password:{password}"
-        print("Отправляем:", msg)
-        print("Ответ сервера:", send_message(msg))
+    main()
