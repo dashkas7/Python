@@ -60,6 +60,12 @@ def send_file(file_name, conn, content_type="text/html"):
     except IOError:
         print(f"file not found: {file_name}") 
         conn.send(b"HTTP/1.1 404 Not Found\n\n<h1>404 Not Found</h1>")
+def is_file(path):
+    if '.' in path:
+        ext = path.split('.')[-1]
+        if ext in ['html', 'css', 'json', 'png', 'jpg','ico']:
+            return True
+    return False
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(('127.0.0.1', 7777))
@@ -79,7 +85,6 @@ while True:
     data = conn.recv(1024).decode("utf-8")
     print('Получено:', data)
 
-    # первая строка запроса: GET /style.css HTTP/1.1
     try:
         request = data.split(" ")[1]
     except IndexError:

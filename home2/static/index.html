@@ -3,99 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Регистрация</title>
+  <title>Главная страница</title>
   <style>
+    :root {
+      --primary: #0078d7;
+      --primary-hover: #005fa3;
+      --border: #ccc;
+      --text: #333;
+      --bg-muted: #f6f8fa;
+    }
+
     body {
       font-family: system-ui, Arial, sans-serif;
-      margin: 40px;
-      line-height: 1.6;
-    }
-    h1, h2 {
-      color: #333;
-    }
-    form {
-      display: grid;
-      gap: 10px;
-      max-width: 360px;
-      margin-bottom: 30px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    label {
+      margin: 0;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
-      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      background: #f0f2f5;
+      color: var(--text);
     }
-    input, button {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 5px;
+
+    .container { max-width: 420px; width: 100%; }
+
+    /* Общие панели */
+    .panel { display: none; }
+
+    /* По умолчанию показываем главную */
+    #home.panel { display: block; }
+
+    /* Когда есть якорь в URL — показываем выбранную панель */
+    :target.panel { display: block; }
+
+    /* Если открыта форма — скрыть главную */
+    :target ~ #home.panel { display: none; }
+
+    /* Карточки */
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    button {
-      background: #0078d7;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    button:hover {
-      background: #005fa3;
-    }
-    .hint {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    ul li {
-      margin: 5px 0;
-    }
-    a {
-      color: #0078d7;
+
+    /* Кнопки-ссылки */
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: #fff;
       text-decoration: none;
+      border-radius: 6px;
+      margin-right: 10px;
     }
-    a:hover {
-      text-decoration: underline;
+    .btn:hover { background: var(--primary-hover); }
+
+    /* Поля форм */
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    input[type="text"], input[type="password"] {
+      padding: 10px; font-size: 16px; border: 1px solid var(--border); border-radius: 6px;
     }
+    .submit { padding: 10px 14px; border: 0; border-radius: 6px; background: var(--primary); color: #fff; cursor: pointer; }
+    .submit:hover { background: var(--primary-hover); }
+
+    /* Линк «назад» */
+    .back { display: inline-block; margin-top: 10px; color: var(--primary); text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+
+    .muted { background: var(--bg-muted); }
   </style>
 </head>
 <body>
-  <h1>Регистрация</h1>
-  <p class="hint">
-    Эта страница отправляет запросы на сервер через упрощённый HTTP.
-    Данные сохраняются в <code>users.json</code> на сервере.
-  </p>
+  <div class="container">
 
-  <form method="get" action="/register">
-    <h2>Регистрация (GET)</h2>
-    <label>Логин (>=6, латиница/цифры)
-      <input name="login" required minlength="6" pattern="[A-Za-z0-9]+">
-    </label>
-    <label>Пароль (>=8, хотя бы 1 цифра)
-      <input name="password" type="password" required minlength="8">
-    </label>
-    <button type="submit">Зарегистрироваться</button>
-  </form>
+    <!-- Панель РЕГИСТРАЦИИ -->
+    <section id="register" class="panel">
+      <div class="card">
+        <h2>Регистрация</h2>
+        <form method="get" action="/register">
+          <label class="field">Логин (>=6, латиница/цифры)
+            <input type="text" name="login" required minlength="6" pattern="[A-Za-z0-9]+">
+          </label>
+          <label class="field">Пароль (>=8, хотя бы 1 цифра)
+            <input type="password" name="password" required minlength="8">
+          </label>
+          <button class="submit" type="submit">Зарегистрироваться</button>
+        </form>
+        <a class="back" href="#home">← Назад</a>
+      </div>
+    </section>
 
-  <form method="post" action="/register">
-    <h2>Регистрация (POST)</h2>
-    <label>Логин
-      <input name="login" required minlength="6" pattern="[A-Za-z0-9]+">
-    </label>
-    <label>Пароль
-      <input name="password" type="password" required minlength="8">
-    </label>
-    <button type="submit">Зарегистрироваться</button>
-  </form>
+    <!-- Панель ВХОДА -->
+    <section id="login" class="panel">
+      <div class="card">
+        <h2>Вход</h2>
+        <form method="get" action="/signin">
+          <label class="field">Логин
+            <input type="text" name="login" required minlength="6" pattern="[A-Za-z0-9]+">
+          </label>
+          <label class="field">Пароль
+            <input type="password" name="password" required minlength="8">
+          </label>
+          <button class="submit" type="submit">Войти</button>
+        </form>
+        <a class="back" href="#home">← Назад</a>
+      </div>
+    </section>
 
-  <h2>Проверка маршрутов</h2>
-  <ul>
-    <li><a href="/test/42">/test/42</a></li>
-    <li><a href="/message/alice/hello%20world/">/message/alice/hello world/</a></li>
-  </ul>
+    <!-- ГЛАВНАЯ -->
+    <section id="home" class="panel">
+      <div class="card muted">
+        <h1>Добро пожаловать!</h1>
+        <p>Выберите действие:</p>
+        <a class="btn" href="#register">Регистрация</a>
+        <a class="btn" href="#login">Вход</a>
+      </div>
+    </section>
+
+  </div>
 </body>
 </html>
