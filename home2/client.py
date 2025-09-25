@@ -1,68 +1,36 @@
-"""
-
-написать приложение-клиент используя модуль socket работающее в домашней 
-локальной сети.
-Приложение должно соединятся с сервером по известному адрес:порт и отправлять 
-туда текстовые данные.
-
-известно что сервер принимает данные следующего формата:
-    "command:reg; login:<login>; password:<pass>" - для регистрации пользователя
-    "command:signin; login:<login>; password:<pass>" - для входа пользователя
-    
-    
-с помощью программы зарегистрировать несколько пользователей на сервере и произвести вход
-
-
-"""
-
 import socket
 
-HOST = "127.0.0.1" # замените на IP сервера в вашей сети (напр., 192.168.1.23)
-PORT = 8888
+HOST = ('127.0.0.1', 7777)
 
+while True:
+    cmd = input("Введите команду (reg <login> <pass> | signin <login> <pass> | exit): ").strip()
+    if not cmd:
+        continue
+    if cmd == "exit":
+        break
 
+    parts = cmd.split()
+    if parts[0] not in ("reg", "signin") or len(parts) < 3:
+        print("Ошибка: используйте reg <логин> <пароль> или signin <логин> <пароль>")
+        continue
 
+    login, password = parts[1], parts[2]
 
-def send_raw(line: str) -> str:
-    with socket.create_connection((HOST, PORT), timeout=5) as s:
-        s.sendall(line.encode('utf-8'))
-        s.shutdown(socket.SHUT_WR)
-        data = s.recv(65536)
-        return data.decode('utf-8', errors='replace')
+    # Формируем строку для сервера
+    if parts[0] == "reg":
+        send_data = f"command:reg; login:{login}; password:{password}"
+    else:
+        send_data = f"command:signin; login:{login}; password:{password}"
 
+    # Создаём сокет и отправляем
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(HOST)
 
-def make_reg(login: str, password: str) -> None:
-    cmd = f"command:reg; login:{login}; password:{password}"
-    print(send_raw(cmd))
+    sock.send(send_data.encode("utf-8"))   # отправляем строку
+    sock.shutdown(socket.SHUT_WR)          # закрываем запись, чтобы сервер понял, что всё передано
 
+    # Получаем ответ
+    data = sock.recv(4096).decode("utf-8", errors="replace")
+    print("Ответ сервера:", data)
 
-def make_signin(login: str, password: str) -> None:
-    cmd = f"command:signin; login:{login}; password:{password}"
-    print(send_raw(cmd))
-
-
-
-def main():
-    print("Уважаемый клиент. Команды: reg <login> <password> | signin <login> <password> | exit")
-    while True:
-        try:
-            parts = input("> ").strip().split()
-        except (EOFError, KeyboardInterrupt):
-            print()
-            break
-        if not parts:
-            continue
-        if parts[0] == 'exit':
-            break
-        if parts[0] == 'reg' and len(parts) >= 3:
-            make_reg(parts[1], parts[2])
-            continue
-        if parts[0] == 'signin' and len(parts) >= 3:
-            make_signin(parts[1], parts[2])
-            continue
-        print("Неизвестная команда. Пример: reg user123 passw0rd")
-
-
-
-if __name__ == "__main__":
-    main()
+    sock.close()
