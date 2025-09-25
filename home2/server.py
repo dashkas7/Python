@@ -235,7 +235,7 @@ while True:
 
         elif re.fullmatch(r"/test/(\d+)/?", path):  # тест
             num = path.split("/")[2]
-            html = f"<h1>тест {num} запущен</h1>"
+            html = f"<p1>Nест {num} запущен</p1>"
             conn.send(OK); conn.send(HEADERS_HTML); conn.send(html.encode())
 
         elif re.fullmatch(r"/message/([^/]+)/(.+?)/?", path):  # сообщение
