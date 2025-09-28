@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    p{
+        border: 1px solid blue; font-size: 20px;color:Navy; background:LightSkyBlue	; font-style: italic; padding: 5px;
+    }
+    body{
+        background: LightCyan; font-family: Arial, Helvetica, sans-serif;
+    }
+    </style>
+<body>
+    <h1>Пользователи</h1>
+    {% for user in users %}
+    <p>
+    <span style="color:Navy;font-style: italic ">{{loop.index}}.</span> 
+          {{ user }}
+    </p>
+    {% endfor %}
+    <a href="/">На главную</a>
+</body>
+</html>

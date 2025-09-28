@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python</title>
+</head>
+<style>
+   
+    body{
+        background: LightCyan; font-family: Arial, Helvetica, sans-serif;
+    }
+    </style>
+<body>
+    {% set q=11111111 %}
+
+    {% if q==1 %}
+        <p>123456</p>
+    {% else %}
+        <p>q is not 1</p>
+    {% endif %}
+
+    {%if admin %}
+    <button> Click1 </button>
+    <button> Click2 </button>
+    <button> Click3 </button>
+    {% endif %}
+
+
+    <h1>hello</h1>
+    <h2>Python</h2>
+    <p> {{q}} </p>
+
+    <a href="/users/">Пользователи</a>
+</body>
+</html>
