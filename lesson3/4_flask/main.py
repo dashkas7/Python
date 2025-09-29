@@ -14,9 +14,16 @@ users = [ 'user1', 'user2', 'user3', 'user4', 'user5' ]
 def index():
     return render_template('1.html', admin=True, q=22222)
 
+@app.route("/forma1/")
+def forma1():
+    return render_template('forma1.html')
+
+
 @app.route("/message/<login>/<mes>/")
 def message(login,mes):
     return render_template('mes.html',user=login, mes = mes)
+    
+    
     
 @app.route("/users/")
 def users_():
@@ -27,6 +34,7 @@ def users_():
 def test(num):
     return 'test' * num
    # return render_template('test.html')
+
    
    
    
