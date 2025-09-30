@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -14,9 +14,16 @@ users = [ 'user1', 'user2', 'user3', 'user4', 'user5' ]
 def index():
     return render_template('1.html', admin=True, q=22222)
 
-@app.route("/forma1/")
+@app.route("/forma1/", methods=['GET','POST'])
 def forma1():
-    return render_template('forma1.html')
+    if request.method == 'POST':
+        if request.form.get('login')=='qqq':
+            return redirect(url_for('index'))
+        else:
+    return render_template('forma1.html', err='Неправильный пароль')
+                                                              
+    # else:
+        return render_template('forma1.html', err=err, login=login)
 
 
 @app.route("/message/<login>/<mes>/")
