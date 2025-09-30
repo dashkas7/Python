@@ -110,6 +110,11 @@ def weather_city(city=None):
 def animals():
     return render_template("dogs.html", title="Породы собак")
 
+@app.route("/homework/")
+@login_required
+def homework():
+    return render_template("homework5.html")
+
 
 @app.route("/registration/", methods=["GET", "POST"], endpoint="registration")
 def registration():
@@ -186,9 +191,7 @@ def logout():
     session.pop("user", None)
     return redirect(url_for("index"))
 
-@app.route("/homework/")
-def homework():
-    return render_template("homework5.html")
+
 
 
 @app.errorhandler(404)

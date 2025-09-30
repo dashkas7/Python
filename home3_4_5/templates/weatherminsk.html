@@ -7,10 +7,11 @@
 <style>
     body { background-color: #8dcdcd; }
     h1   { font-family:Comic Sans MS; color: white; margin-left: 20px; text-align: center; }
-    h2   { font-family:Arial; color: #f4f0f0ff; margin-left: 20px; text-align: center; }
-    p    { font-family:Arial; color: #f3eeeeff; margin-left: 20px; text-align: center; }
+    h2   { font-family:Comic Sans MS; color: #f4f0f0ff; margin-left: 20px; text-align: center; }
+    p    { font-family:Comic Sans MS; color: #f3eeeeff; margin-left: 20px; text-align: center; }
    
     button {  background-color: #5b9dd3fd;
+        font-family:Comic Sans MS;
         border-radius: 12px; 
         border: 2px solid rgb(14, 102, 143);
         padding: 10px 24px; 
@@ -26,7 +27,13 @@
 </style>
 <body style="text-align:center; font-family:Arial;">
    <br>   <br>   <br>
-    <div style="text-align: center; border: 3px solid rgb(14, 102, 143); border-radius: 10px; padding: 20px; max-width: 300px; margin: 20px auto; background-color: #68a9d8ff;">
+    <div style="text-align: center; 
+        border: 3px solid rgb(14, 102, 143);
+        border-radius: 10px;
+        padding: 20px; 
+        max-width: 300px;
+        margin: 20px auto;
+        background-color: #68a9d8ff;">
     <h1>Погода в Минске</h1>
     <h2>Температура: {{ temp }}°C</h2>
     <p>Ветер: {{ wind }} км/ч</p>
