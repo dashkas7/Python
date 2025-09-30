@@ -10,7 +10,7 @@
             font-family: Comic Sans MS;
         }
         h1 {
-            font-size: 40px;
+            font-size: 60x;
             color: #f5f6f8f0;
             margin-top: 30px;
         }
@@ -31,7 +31,7 @@
             border: 1px solid #ccc;
             width: 280px;
         }
-        button {
+        button {font-family: Comic Sans MS;
             background-color: #afe5f9fd;
             border-radius: 12px;
             padding: 10px 24px;
@@ -79,10 +79,8 @@
         </div>
     {% endif %}
     <br>
-    <button> <a style="color: black;" href="{{ url_for('login') }}">Уже есть аккаунт? Войти
-    </button>
+    <button> <a style="color: black;" href="{{ url_for('login') }}" >Уже есть аккаунт?> Войти </button>
     <br>
-    <button> <a style="color: black;" href="{{ url_for('index') }}" >На главную
-    </button>
+    <button> <a style="color: black;" href="{{ url_for('index') }}" >На главную </button>
 </body>
 </html>
