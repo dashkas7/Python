@@ -12,8 +12,6 @@ app.secret_key = "super_secret_key"
 
 USERS_FILE = "users.json"
 
-
-# ------------------- Работа с пользователями -------------------
 def load_users():
     if not os.path.exists(USERS_FILE):
         return {}
@@ -26,7 +24,6 @@ def save_users(users):
         json.dump(users, f, ensure_ascii=False, indent=4)
 
 
-# ------------------- Декоратор для защиты -------------------
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -35,15 +32,12 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
-# ------------------- Главная -------------------
 @app.route("/")
 def index():
     user = session.get("user")
     return render_template("main.html", user=user)
 
 
-# ------------------- Уточки -------------------
 @app.route("/duck/", endpoint="duck")
 @login_required
 def duck():
@@ -54,7 +48,6 @@ def duck():
     return render_template("duck.html", duck_url=duck_url, duck_number=duck_number)
 
 
-# ------------------- Лисички -------------------
 @app.route("/fox/", endpoint="fox")
 @app.route("/fox/<int:number>/", endpoint="fox")
 @login_required
@@ -72,7 +65,6 @@ def fox(number=None):
     return render_template("fox.html", foxs=foxs, number=number)
 
 
-# ------------------- Погода в Минске -------------------
 @app.route("/weather-minsk/", endpoint="weather_minsk")
 @login_required
 def weather_minsk():
@@ -87,7 +79,6 @@ def weather_minsk():
     return render_template("weatherminsk.html", temp=temp, wind=wind)
 
 
-# ------------------- Погода в любом городе -------------------
 @app.route("/weather/", endpoint="weather_city")
 @app.route("/weather/<city>/", endpoint="weather_city")
 @login_required
@@ -114,14 +105,12 @@ def weather_city(city=None):
     return render_template("weathercity.html", temp=temp, wind=wind, city=city.capitalize())
 
 
-# ------------------- Собаки -------------------
 @app.route("/dogs/", endpoint="dogs")
 @login_required
 def animals():
     return render_template("dogs.html", title="Породы собак")
 
 
-# ------------------- Регистрация -------------------
 @app.route("/registration/", methods=["GET", "POST"], endpoint="registration")
 def registration():
     if request.method == "POST":
@@ -169,7 +158,6 @@ def registration():
     return render_template("registration.html", errors=[], form={})
 
 
-# ------------------- Вход -------------------
 @app.route("/login/", methods=["GET", "POST"], endpoint="login")
 def login():
     if request.method == "POST":
@@ -192,15 +180,17 @@ def login():
     return render_template("login.html", error=None, form={})
 
 
-# ------------------- Выход -------------------
 @app.route("/logout/", endpoint="logout")
 @login_required
 def logout():
     session.pop("user", None)
     return redirect(url_for("index"))
 
+@app.route("/homework/")
+def homework():
+    return render_template("homework5.html")
 
-# ------------------- Ошибка 404 -------------------
+
 @app.errorhandler(404)
 def page_not_found(error):
     return '<h1 style="color:red; text-align:center; font-size:48px">Такой страницы не существует</h1>'
