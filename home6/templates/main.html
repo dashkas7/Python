@@ -1,72 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-    <style>
-        body {
-            text-align: center;
-            background-color: #7872dbff;
-            font-family: Comic Sans MS;
-        }
-        h1 {
-            font-variant: small-caps;
-            font-family: Comic Sans MS;
-            color: #f5f6f8f0;
-            font-size: 50px;
-            font-weight: bold;
-        }
-        .top-right { color: #f5f6f8f0;
-            font-size: 30px;
-            position: absolute;
-            top: 20px;
-            right: 30px;
-        }
-        button {
-            background-color: #afe5f9fd;
-            border-radius: 12px;
-            padding: 10px 24px;
-            font-size: 20px;
-            margin: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        }
-        button:hover {
-            background-color: #b6ffd1ff;
-            box-shadow: 0 0 25px rgba(16, 132, 47, 0.64);
-            transform: scale(1.05);
-            transition: all 0.3s ease-in-out;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="top-right">
-        {% if user %}
-            <span>Приветствуем вас, {{ user.name }} {{ user.surname }}</span>
-            <button> <a  style="color: rgb(0, 0, 0);" href="{{ url_for('logout') }}">Выйти</a></button>
-        {% else %}
-            <button><a href="{{ url_for('login') }}">Вход</a></button>
-            <button><a href="{{ url_for('registration') }}">Регистрация</a></button>
-        {% endif %}
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>Выберите раздел</h1>
-    <div>
-        <button><a href="/duck/">Рандомные уточки</a></button>
-        <button><a href="/fox/">Рандомные лисички</a></button>
-        <button><a href="/weather-minsk/">Погода в Минске</a></button>
-        <button><a href="/weather/">Погода в любом городе</a></button>
-        <button><a href="/dogs/">Лабрадоры-ретриверы</a></button>
-        <button> <a href="/homework/">Домашнее задание</a></button>
+{% extends "base.html" %}
 
-    </div>
-</body>
-</html>
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h2>Главная страница</h2>
+    <p>Добро пожаловать на сайт с уточками, лисичками, погодой и собаками 🐾</p>
+{% endblock %}

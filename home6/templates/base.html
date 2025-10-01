@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Сайт{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+    
+    <!-- Header -->
+    <header class="header">
+        <h1>🐾 Сайт с уточками, лисичками и погодой</h1>
+
+        <div class="auth">
+            {% if session.get('user') %}
+                <span>Приветствуем, {{ session['user']['name'] }} {{ session['user']['surname'] }}</span>
+                <a class="btn" href="{{ url_for('logout') }}">Выйти</a>
+            {% else %}
+                <a class="btn" href="{{ url_for('login') }}">Вход</a>
+                <a class="btn" href="{{ url_for('registration') }}">Регистрация</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h3>Меню</h3>
+        <ul>
+            <li><a href="{{ url_for('index') }}" target="_blank">🏠 Главная</a></li>
+            <li><a href="{{ url_for('duck') }}" target="_blank">🦆 Уточки</a></li>
+            <li><a href="{{ url_for('fox') }}" target="_blank">🦊 Лисички</a></li>
+            <li><a href="{{ url_for('weather_minsk') }}" target="_blank">🌤 Погода Минск</a></li>
+            <li><a href="{{ url_for('weather_city') }}" target="_blank">🌍 Погода города</a></li>
+            <li><a href="{{ url_for('dogs') }}" target="_blank">🐶 Собаки</a></li>
+            <li><a href="{{ url_for('homework') }}" target="_blank">📘 Домашка</a></li>
+            <li><a href="{{ url_for('rates') }}" target="_blank">💰 Курсы валют</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Мой сайт. Все права защищены.</p>
+    </footer>
+</div>
+</body>
+</html>

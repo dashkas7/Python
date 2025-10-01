@@ -1,3 +1,26 @@
+'''
+Создать базовый шаблон для FLASK со 
+стандартной сеткой (flex или grid)
+перенести свои страницы на этот шаблон
+подписать каждый элемент сетки
+
+применить к своим страницам какие-нибудь стили на свое усмотрение
+
+
+
+
+---- необязательное задание для самых любопытных -----
+
+* добавить на сайт меню для просмотра курсов нац банка на сегодня
+     ссылка на API - https://www.nbrb.by/apihelp/exrates
+     
+** добавить на сайт в меню  конвертор валют на основе курсов nbrb.by 
+    с пересчетом на любую дату по валютам BYN, USD, EURO, RUB
+    
+'''
+
+
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import requests, random, re
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -112,11 +135,26 @@ def login():
 
     return render_template("login.html", error=None, form={})
 
+@app.route("/homework/", endpoint="homework")
+def homework():
+    return render_template("homework.html")
+
 @app.route("/logout/")
 @login_required
 def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
+@app.route("/rates/")
+@login_required
+def rates():
+    url = "https://www.nbrb.by/api/exrates/rates?periodicity=0"
+    try:
+        response = requests.get(url)
+        rates = response.json()
+    except Exception as e:
+        rates = None
+    return render_template("rates.html", rates=rates)
+
 
 @app.errorhandler(404)
 def not_found(e):

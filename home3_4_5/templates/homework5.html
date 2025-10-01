@@ -18,7 +18,8 @@
     section h1{margin:0;
         color:#3b2d5b;
         font-size:45px;
-        font-variant:small-caps}
+        font-variant:small-caps;
+        text-align: center;}
 
     .btn{font-family:"Comic Sans MS",cursive,sans-serif;
       display:inline-block;
@@ -47,7 +48,7 @@
         margin:5px auto;
         border-radius:16px;
         box-shadow:0 0 18px rgba(0,0,0,0.25);
-        text-align:center}
+        text-align:left}
 
     section h2{margin:0 0 14px;
         text-align:center;
@@ -131,16 +132,16 @@
 </head>
 <body>
 
-<section>
+<section h1>
   <h1>Домашнее задание</h1>
-  </section>
+  </section h1>
 <br>
 
 <main>
-  <section id="task1">
+  <section h1 id="task1">
     <h2>Задание 1</h2>
     <div class="tex">Joy of T<span class="e">E</span>X</div>
-  </section>
+  </section h1>
 
   <section id="task2">
     <h2>Задание 2</h2>
@@ -250,7 +251,6 @@
     <p style="text-align:center"><progress value="40" max="100"></progress></p>
   </section>
 
-  
   <section id="task7">
     <h2>Задание 7</h2>
     <table>
@@ -260,7 +260,6 @@
       <tr><td>3</td><td><a href="#">Бор</a></td><td><b>B</b></td><td>1808</td><td>📝</td></tr>
     </table>
   </section>
-
 
   <section id="task8" class="g">
     <h2>Задание 8</h2>
@@ -314,7 +313,6 @@
     </div>
   </section>
 
- 
   <section id="task10">
     <h2>Задание 10</h2>
     <div style="background:#e8e8d4;padding:16px;border-radius:10px">
@@ -325,7 +323,6 @@
     </div>
   </section>
 
-  
   <section id="task11">
     <h2>Задание 11</h2>
     <form>
@@ -337,12 +334,9 @@
     </form>
   </section>
 
-  
   <section id="task12">
     <h2>Задание 12</h2>
     <form>
-      <h2 style="color: #000; ">Форма заявки на работу в зоопарке</h2>
-     <p style="font-family:italic ;font-family:Comic Sans MS; text-align:center;" >Пожалуйста, заполните форму. Обязательные пол помечены*</p>
       <fieldset>
         <legend><b>Контактная информация</b></legend>
         Имя * <input type="text" required><br><br>
@@ -377,6 +371,7 @@
       <button class="btn" type="submit">Отправить информацию</button>
     </form>
   </section>
+
 <a class="btn" href="{{ url_for('index') }}">На главную</a>
 </main>
 

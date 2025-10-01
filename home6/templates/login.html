@@ -1,82 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Вход</title>
-    <style>
-        body {
-            text-align: center;
-            background-color: #7872dbff;
-            font-family: Comic Sans MS;
-        }
-        h1 {
-            font-size: 40px;
-            color: #f5f6f8f0;
-            margin-top: 40px;
-        }
-        form {
-            background: #f5f6f8f0;
-            display: inline-block;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            margin-top: 30px;
-        }
-        input {
-            display: block;
-            margin: 10px auto;
-            padding: 10px;
-            font-size: 18px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            width: 250px;
-        }
-        button {
-            background-color: #afe5f9fd;
-            border-radius: 12px;
-            padding: 10px 24px;
-            font-size: 20px;
-            margin-top: 15px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        }
-        button:hover {
-            background-color: #b6ffd1ff;
-            box-shadow: 0 0 25px rgba(16,132,47,0.64);
-            transform: scale(1.05);
-            transition: all 0.3s ease-in-out;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-        a {
-            display: block;
-            margin-top: 5px;
-            color: black;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <h1>Вход</h1>
+{% extends "base.html" %}
 
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h2>Вход</h2>
     <form method="post">
         <input type="text" name="login" placeholder="Логин" value="{{ form.get('login','') }}">
         <input type="password" name="password" placeholder="Пароль">
         <button type="submit">Войти</button>
     </form>
-
     {% if error %}
-        <div class="error">{{ error }}</div>
+        <p style="color:red;">{{ error }}</p>
     {% endif %}
-<br>
-    <button> <a href="{{ url_for('registration') }}">Нет аккаунта? Регистрация</a>
-    </button>
-    <br>
-    <button style="margin-top: 25px;">
-        <a href="{{ url_for('index') }}" style="text-decoration: none; color: black;">На главную</a>
-    </button>
-</body>
-</html>
+{% endblock %}

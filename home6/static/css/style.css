@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    font-family: Comic Sans MS, Arial, sans-serif;
+    background-color: #7872dbff;
+    color: #222;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    grid-area: header;
+    background: #4b3fb3;
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.auth {
+    display: flex;
+    gap: 10px;
+}
+
+.auth .btn {
+    background: #afe5f9fd;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.auth .btn:hover {
+    background: #b6ffd1ff;
+    transform: scale(1.05);
+}
+
+/* Sidebar */
+.sidebar {
+    grid-area: sidebar;
+    background: #eee;
+    padding: 15px;
+    border-right: 2px solid #ccc;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 10px 0;
+}
+
+.sidebar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+
+.sidebar a:hover {
+    color: navy;
+}
+
+/* Main */
+.main {
+    grid-area: main;
+    padding: 20px;
+    background: #f5f6f8f0;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+}
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    background: #4b3fb3;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Курсы валют{% endblock %}
+
+{% block content %}
+    <h2>Курсы валют на сегодня</h2>
+
+    {% if rates %}
+        <table style="margin: 0 auto; border-collapse: collapse; width: 60%; background: #fff;">
+            <thead>
+                <tr style="background: #afe5f9fd;">
+                    <th style="border: 1px solid black; padding: 10px;">Валюта</th>
+                    <th style="border: 1px solid black; padding: 10px;">Код</th>
+                    <th style="border: 1px solid black; padding: 10px;">Курс</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rate in rates %}
+                    <tr>
+                        <td style="border: 1px solid black; padding: 10px;">{{ rate['Cur_Name'] }}</td>
+                        <td style="border: 1px solid black; padding: 10px;">{{ rate['Cur_Abbreviation'] }}</td>
+                        <td style="border: 1px solid black; padding: 10px;">{{ rate['Cur_OfficialRate'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p style="color:red;">Не удалось загрузить курсы валют 😢</p>
+    {% endif %}
+{% endblock %}
