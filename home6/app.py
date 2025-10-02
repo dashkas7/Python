@@ -144,17 +144,6 @@ def homework():
 def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
-@app.route("/rates/")
-@login_required
-def rates():
-    url = "https://www.nbrb.by/api/exrates/rates?periodicity=0"
-    try:
-        response = requests.get(url)
-        rates = response.json()
-    except Exception as e:
-        rates = None
-    return render_template("rates.html", rates=rates)
-
 
 @app.errorhandler(404)
 def not_found(e):
