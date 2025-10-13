@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Погода в Минске</title>
-</head>
+{% extends "base.html" %}
+
+{% block title %}Погода в Минске{% endblock %}
+
+{% block content %}
 <style>
     body { background-color: #8dcdcd; }
     h1   { font-family:Comic Sans MS; color: white; margin-left: 20px; text-align: center; }
@@ -41,5 +40,4 @@
      <button > 
         <a style="color: white;" href="/">На главную</a>
         </button>
-</body>
-</html>
+{% endblock %}

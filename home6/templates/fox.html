@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fox</title>
-</head>
-<body> 
-    <style>
-       body { background-color: rgb(237, 202, 133); }
-        h1   {font-family:Comic Sans MS; 
+{% extends "base.html" %}
+
+{% block title %}Лисы{% endblock %}
+
+{% block content %}
+<style>
+h1   {font-family:Comic Sans MS; 
             font-size: 40px;
                 text-align:center; 
                 color: rgb(100, 20, 7); 
@@ -39,18 +35,15 @@
             box-shadow: 0 0 25px rgb(238, 82, 20);
             transform: scale(1.05); 
             transition: all 0.3s ease-in-out; }
-
 </style>
-<br>
-<div style="text-align: center;">
-   <h1> Рандомные лисички </h1>
-   
-    {% for fox in foxs %}
+
+<div>
+  <h2>Рандомные лисички</h2>
+  {% for fox in foxs %}
         <img src="{{fox}}" alt="Лиса">
     {% endfor %}
          <button > 
         <a style="font-family:Comic Sans MS; color: black;" href="/">На главную</a>
         </button>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duck</title>
-</head>
-<body> 
-    <style>
-        body { background-color: #FFEFD5; }
+{% extends "base.html" %}
+
+{% block title %}Уточки{% endblock %}
+
+{% block content %}
+ <style>
         h1   {font-family:Comic Sans MS; 
                 text-align:center; 
                 color: rgb(128, 66, 0); 
@@ -40,14 +36,12 @@
             transition: all 0.3s ease-in-out; }
 
 </style>
-<br> <br> <br>
-    <h1>Рандомная уточка №{{duck_number}}</h1>
-    <div 
+  <h1>Рандомная уточка №{{duck_number}}</h1>
+<div 
     style="text-align: center;">
     <img src="{{duck_url}}" alt="Random Duck" style="max-width:600px; border-radius:10px;">
     <button> 
         <a style="color:black" href="/">На главную</a>
         </button>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
