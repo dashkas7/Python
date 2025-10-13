@@ -5,5 +5,10 @@
         "age": "19",
         "email": "dasasivcuk@gmail.com",
         "password": "scrypt:32768:8:1$u55m3jmyBeImrMtt$571dbfa51759464d524dbb2cb23210dd907f8c69b89ea1e161275fc8a1a5640f12cdba2810664fa4c323b1f642e726eaac2abfa11cd2f10d70e6bc0d9c23dfc5"
+    },
+    "denis": {
+        "name": "Денис",
+        "surname": "Батькович",
+        "password": "scrypt:32768:8:1$3NqYN5Ki32cV2s0S$b882044449d4202e8fba8ef6ef9755cf23f2cf32f87a8c3bdd1d0b096ff634abcdce6351c313f5b6e81e3403d9012757a6b3b2bb693bbebfbdd6ebf784b3eb3f"
     }
 }
