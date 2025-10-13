@@ -13,11 +13,11 @@
       margin-top: 10px;
      }
   form {
-            background: #f5f6f8f0;
-            display: inline-block;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        background: #fffffff0;
+         display: inline-block;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
             
         }
         input {
@@ -66,5 +66,11 @@
     <input type="text" name="login" placeholder="Логин" required><br><br>
     <input type="password" name="password" placeholder="Пароль" required><br><br>
     <button class="btn" type="submit">Войти</button>
-  </form>
+    <br>
+     </form>
+     <br>
+      <br>
+      <a href="{{ url_for('index') }}"> На главную</a>
+
+  
 {% endblock %}

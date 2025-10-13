@@ -9,7 +9,7 @@
     <style>
        body { background-color: rgb(237, 202, 133); }
         h1   {font-family:Comic Sans MS; 
-            font-size: 40px;
+                font-size: 40px;
                 text-align:center; 
                 color: rgb(100, 20, 7); 
                 margin-left: 20px; }
@@ -44,13 +44,13 @@
 <br>
 <div style="text-align: center;">
    <h1> Рандомные лисички </h1>
-   
-    {% for fox in foxs %}
-        <img src="{{fox}}" alt="Лиса">
-    {% endfor %}
-         <button > 
-        <a style="font-family:Comic Sans MS; color: black;" href="/">На главную</a>
-        </button>
+
+{% for fox in foxs %}
+    <img src="{{ fox }}" alt="Лиса">
+{% endfor %}
+<button > 
+     <a style="font-family:Comic Sans MS; color: black;" href="/">На главную</a>
+    </button>
     </div>
 </body>
 </html>
