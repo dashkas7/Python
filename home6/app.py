@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import requests
+import requests, random
 import json, os
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -30,11 +30,14 @@ def login_required(f):
 def index():
     return render_template("main.html")
 
-@app.route("/duck/")
+@app.route("/duck/", endpoint="duck")
 @login_required
 def duck():
-    data = requests.get("https://random-d.uk/api/random").json()
-    return render_template("duck.html", duck_url=data["url"])
+    response = requests.get("https://random-d.uk/api/random")
+    data = response.json()
+    duck_url = data["url"]
+    duck_number = random.randint(1, 999)
+    return render_template("duck.html", duck_url=duck_url, duck_number=duck_number)
 
 @app.route("/fox/", endpoint="fox")
 @app.route("/fox/<int:number>/", endpoint="fox")
