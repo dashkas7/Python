@@ -5,7 +5,7 @@
     <title>{% block title %}Сайт{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        body{
+        body{ text-align: center;
             background-color:#7872dbff;
             font-family:"Comic Sans MS",cursive,sans-serif;
             margin:0;
@@ -156,7 +156,7 @@
     <input type="checkbox" id="menu-toggle">
 
     <header class="header">
-        <h1>🐾 Мой сайт 🐾</h1>
+        <h1 href="{{ url_for('index') }}"> 🐾 Мой сайт 🐾</h1>
 
         <label class="menu-toggle-btn" for="menu-toggle">☰ Меню</label>
 
@@ -181,6 +181,7 @@
             <a href="{{ url_for('dogs') }}">🐶 Собаки</a>
             <a href="{{ url_for('homework') }}">📘 Домашка</a>
             <a href="{{ url_for('rates') }}">💰 Курсы валют</a>
+            
         </div>
     </nav>
 

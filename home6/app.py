@@ -36,18 +36,30 @@ def duck():
     data = requests.get("https://random-d.uk/api/random").json()
     return render_template("duck.html", duck_url=data["url"])
 
-@app.route("/fox/")
+@app.route("/fox/", endpoint="fox")
+@app.route("/fox/<int:number>/", endpoint="fox")
 @login_required
-def fox():
-    data = requests.get("https://randomfox.ca/floof/").json()
-    return render_template("fox.html", fox_url=data["image"])
+def fox(number=None):
+    if number is None:
+        number = 1
+    if number < 1 or number > 10:
+        return '<h1 style="color:red; text-align:center; font-size:48px">Можно выбрать количество от 1 до 10</h1>'
+
+    response = requests.get("https://randomfox.ca/floof/")
+    data = response.json()
+    fox_url = data["image"]
+
+    foxs = [fox_url] * number
+    return render_template("fox.html", foxs=foxs, number=number)
+
+
 
 @app.route("/dogs/")
 @login_required
 def dogs():
     return render_template("dogs.html")
 
-@app.route("/weather-minsk/")
+@app.route("/weather-minsk/", endpoint="weather_minsk")
 @login_required
 def weather_minsk():
     url = "https://api.open-meteo.com/v1/forecast?latitude=53.9&longitude=27.5667&current_weather=true"
@@ -55,10 +67,31 @@ def weather_minsk():
     weather = data.get("current_weather", {})
     return render_template("weatherminsk.html", temp=weather.get("temperature"), wind=weather.get("windspeed"))
 
-@app.route("/weather/")
+@app.route("/weather/", endpoint="weather_city")
+@app.route("/weather/<city>/", endpoint="weather_city")
 @login_required
-def weather_city():
-    return render_template("weathercity.html")
+def weather_city(city=None):
+    if city is None:
+        city = "Gomel"
+
+    geo_url = f"https://nominatim.openstreetmap.org/search?city={city}&format=json&limit=1"
+    geo_resp = requests.get(geo_url, headers={"User-Agent": "Mozilla/5.0"}).json()
+
+    if not geo_resp:
+        return f"<h1>Город '{city}' не найден</h1>"
+
+    lat = geo_resp[0]["lat"]
+    lon = geo_resp[0]["lon"]
+
+    url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+    data = requests.get(url).json()
+
+    weather = data.get("current_weather", {})
+    temp = weather.get("temperature", "?")
+    wind = weather.get("windspeed", "?")
+
+    return render_template("weathercity.html", temp=temp, wind=wind, city=city.capitalize())
+
 
 @app.route("/homework/")
 @login_required
