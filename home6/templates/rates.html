@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Курсы валют{% endblock %}
+{% block title %}Курсы белорусского рубля по отношению к иностранным валютам{% endblock %}
 
 {% block content %}
-  <h2>Курсы валют НБРБ</h2>
+  <h2>Курсы белорусского рубля по отношению к иностранным валютам</h2>
   <table border="1" cellpadding="8">
     <tr>
-      <th>Валюта</th>
-      <th>Код</th>
+      <th>Иностранная валюта</th>
+      <th>Наименование иностранной валюты</th>
       <th>Курс</th>
     </tr>
     {% for rate in rates %}
