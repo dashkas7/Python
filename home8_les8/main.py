@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, j
 import os
 from models import db, Quiz, Question, db_add_new_data, User
 from random import shuffle
- from sqlalchemy import not_
+from sqlalchemy import not_
 
 BASE_DIR = os.path.dirname(__file__)
 DB_DIR = os.path.join(BASE_DIR, 'db')
