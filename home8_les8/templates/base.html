@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+
+    <style>
+        /* --- Базовые настройки --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a0a0a, #0d47a1);
+            background-attachment: fixed;
+            color: #f4f6f9;
+            overflow-x: hidden;
+        }
+
+        /* --- Шапка --- */
+        header {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #42a5f5, #1e88e5, #0d47a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 4s infinite linear;
+        }
+
+        @keyframes gradientText {
+            0% {background-position: 0%;}
+            100% {background-position: 200%;}
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #90caf9;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            background: rgba(144,202,249,0.15);
+            color: #fff;
+            box-shadow: 0 0 12px #42a5f5;
+        }
+
+        /* --- Контейнер контента --- */
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* --- Карточки --- */
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            transform: scale(1);
+        }
+
+        .card:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 12px 30px rgba(33,150,243,0.6);
+        }
+
+        /* --- Заголовки --- */
+        h2, h3 {
+            color: #bbdefb;
+            text-shadow: 0 0 10px rgba(66,165,245,0.7);
+        }
+
+        /* --- Кнопки --- */
+        button, .btn {
+            background: linear-gradient(90deg, #1565c0, #42a5f5);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before, .btn::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.15);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        button:hover::before, .btn:hover::before {
+            left: 100%;
+        }
+
+        button:hover, .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33,150,243,0.7);
+        }
+
+        /* --- Подвал --- */
+        footer {
+            margin-top: 50px;
+            background: rgba(0,0,0,0.9);
+            color: #b0bec5;
+            text-align: center;
+            padding: 20px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            box-shadow: 0 -3px 12px rgba(0,0,0,0.5);
+        }
+
+        footer a {
+            color: #42a5f5;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #90caf9;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Quiz</h1>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/quiz/">Пройти тест</a>
+        <a href="/questions/">Все вопросы</a>
+        <a href="/quizes_view/">Админка</a>
+    </nav>
+</header>
+
+<div class="container">
+    {% block content %}
+    <div class="card" style="text-align: center;">
+        <h2>Добро пожаловать 🎉</h2>
+        <p>Выбери тест и проверь свои знания.</p>
+        <button onclick="window.location.href='/quiz/'">Вперед!</button>
+    </div>
+    {% endblock %}
+</div>
+
+<footer>
+    <p>© 2025 Квизы</p>
+</footer>
+
+</body>
+</html>

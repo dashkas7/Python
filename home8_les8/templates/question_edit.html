@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Редактирование вопроса</h2>
+<form method="POST">
+    <input type="text" name="question" value="{{ q.question }}"><br>
+    <input type="text" name="answer" value="{{ q.answer }}"><br>
+    <input type="text" name="wrong1" value="{{ q.wrong1 }}"><br>
+    <input type="text" name="wrong2" value="{{ q.wrong2 }}"><br>
+    <input type="text" name="wrong3" value="{{ q.wrong3 }}"><br>
+    <button type="submit">Сохранить</button>
+</form>
+{% endblock %}

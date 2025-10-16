@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Меню викторин</h2>
+<ul>
+    {% for quiz in quizes %}
+        <li>{{ quiz.name }} (id: {{ quiz.id }})</li>
+    {% endfor %}
+</ul>
+{% endblock %}

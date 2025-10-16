@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2>Выберите викторину</h2>
+    <form method="POST" class="quiz-select">
+        {% for q in quizes %}
+        <label class="quiz-option">
+            <span class="quiz-title">{{ q.name }}</span>
+            <input type="radio" name="quiz" value="{{ q.id }}" required>
+            <span class="custom-radio"></span>
+        </label>
+        {% endfor %}
+        <button type="submit" class="btn">Начать</button>
+    </form>
+</div>
+{% endblock %}

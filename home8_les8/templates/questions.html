@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Все вопросы</h2>
+<table border="1" width="100%" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Вопрос</th>
+        <th>Ответ</th>
+    </tr>
+    {% for q in questions %}
+    <tr>
+        <td>{{ q.id }}</td>
+        <td>{{ q.question }}</td>
+        <td>{{ q.answer }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

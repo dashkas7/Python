@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="question-card">
+    <h3>Вопрос:</h3>
+    <p>{{ question.question }}</p>
+
+    <form method="POST">
+        {% for ans in answers %}
+            <button type="submit" name="ans_text" value="{{ ans }}" class="answer-btn">
+                {{ ans }}
+            </button>
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}

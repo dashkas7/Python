@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Редактирование викторины: {{ quiz.name }}</h2>
+
+<form method="POST">
+    <label>Название:
+        <input type="text" name="name" value="{{ quiz.name }}">
+    </label>
+    <button type="submit">Сохранить</button>
+
+    <h3>Вопросы в этой викторине</h3>
+    {% for q in quiz.question %}
+        <label>
+            <input type="checkbox" name="check1{{ q.id }}" value="{{ q.id }}">
+            {{ q.question }}
+        </label><br>
+    {% endfor %}
+
+    <h3>Доступные вопросы для добавления</h3>
+    {% for q in no_questions %}
+        <label>
+            <input type="checkbox" name="check2{{ q.id }}" value="{{ q.id }}">
+            {{ q.question }}
+        </label><br>
+    {% endfor %}
+
+    <button type="submit">Обновить</button>
+</form>
+{% endblock %}

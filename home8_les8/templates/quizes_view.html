@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Админка</h2>
+
+<div class="card">
+    <h3>Добавить новый квиз</h3>
+    <form method="POST">
+        <input type="text" name="quiz" placeholder="Название квиза" required>
+        <button type="submit">Добавить квиз</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Добавить новый вопрос</h3>
+    <form method="POST">
+        <input type="text" name="question" placeholder="Вопрос" required>
+        <input type="text" name="answer" placeholder="Правильный ответ" required>
+        <input type="text" name="wrong1" placeholder="Неправильный вариант 1" required>
+        <input type="text" name="wrong2" placeholder="Неправильный вариант 2" required>
+        <input type="text" name="wrong3" placeholder="Неправильный вариант 3" required>
+        <button type="submit">Добавить вопрос</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Существующие квизы</h3>
+    <ul>
+    {% for q in quizes %}
+        <li><b>{{ q.name }}</b> ({{ q.questions|length }} вопросов)</li>
+    {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
