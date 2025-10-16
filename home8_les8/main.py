@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request, session, url_for, j
 import os
 from models import db, Quiz, Question, db_add_new_data, User
 from random import shuffle
+ from sqlalchemy import not_
 
 BASE_DIR = os.path.dirname(__file__)
 DB_DIR = os.path.join(BASE_DIR, 'db')
@@ -20,7 +21,7 @@ db.init_app(app)
 
 html_config = {'admin': True, 'debug': False}
 
-# Инициализация базы с тестовыми данными
+
 with app.app_context():
     db_add_new_data()
     quizes = Quiz.query.all()
@@ -31,7 +32,7 @@ with app.app_context():
     print("Первый вопрос и его квизы:", q[0], q[0].quizes)
 
 
-# ---------- ROUTES ----------
+
 @app.route('/')
 def index():
     return render_template('base.html', html_config=html_config)
@@ -44,7 +45,7 @@ def view_quiz():
         quizes = Quiz.query.all()
         return render_template('start.html', quizes=quizes, html_config=html_config)
 
-    # POST — начинаем квиз
+  
     session['quiz_id'] = int(request.form.get('quiz'))
     session['question_n'] = 0
     session['question_id'] = 0
@@ -61,19 +62,17 @@ def view_question():
     if not quiz:
         return redirect(url_for('view_quiz'))
 
-    # если POST — проверяем ответ
     if request.method == 'POST':
         question = Question.query.get(session['question_id'])
         if question and question.answer == request.form.get('ans_text'):
             session['right_answers'] += 1
         session['question_n'] += 1
 
-    # если вопросов больше нет — конец квиза
+  
     if session['question_n'] >= len(quiz.questions):
         session['quiz_id'] = -1
         return redirect(url_for('view_result'))
 
-    # иначе показываем следующий вопрос
     question = quiz.questions[session['question_n']]
     session['question_id'] = question.id
     answers = [question.answer, question.wrong1, question.wrong2, question.wrong3]
@@ -114,7 +113,6 @@ def view_quiz_edit():
             db.session.add(quiz)
             db.session.commit()
         else:
-            # добавление вопроса
             question = request.form.get('question')
             answer = request.form.get('answer')
             wrong1 = request.form.get('wrong1')
@@ -138,23 +136,20 @@ def quiz_edit(id):
     quiz = Quiz.query.get_or_404(id)
 
     if request.method == 'POST':
-        # изменяем название
         new_name = request.form.get('name')
         if new_name and len(new_name) > 3:
             quiz.name = new_name
 
-        # добавление/удаление вопросов
         add_q = [int(v) for k, v in request.form.items() if k.startswith('add_q')]
         del_q = [int(v) for k, v in request.form.items() if k.startswith('del_q')]
 
-        # добавить вопросы
         if add_q:
             qs = Question.query.filter(Question.id.in_(add_q)).all()
             for q in qs:
                 if q not in quiz.questions:
                     quiz.questions.append(q)
 
-        # удалить вопросы
+        
         if del_q:
             qs = Question.query.filter(Question.id.in_(del_q)).all()
             for q in qs:
@@ -164,11 +159,8 @@ def quiz_edit(id):
         db.session.commit()
         return redirect(url_for('view_quiz_edit'))
 
-    # список id вопросов в квизе
-    current_ids = [q.id for q in quiz.questions]
 
-    # вопросы, которые не в этом квизе
-    from sqlalchemy import not_
+    current_ids = [q.id for q in quiz.questions]
     available_questions = Question.query.filter(~Question.id.in_(current_ids)).all()
 
     return render_template(
@@ -221,7 +213,6 @@ def page_not_found(e):
     return '<h1 style="color:red; text-align:center"> Упс..... </h1>', 404
 
 
-
 @app.route('/api/quizes/', methods=['GET'])
 def api_get():
     quizes = Quiz.query.all()
@@ -246,7 +237,6 @@ def api_post():
 def api_get_id(id):
     quiz = db.session.query(Quiz).get_or_404(id)
     return jsonify(dict(name=quiz.name, user_id=quiz.user_id))
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5555)

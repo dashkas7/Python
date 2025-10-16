@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-# --- Пользователь ---
 class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -23,22 +22,18 @@ class User(db.Model):
         return f'<User {self.name}>'
 
 
-# --- Таблица связки many-to-many Quiz <-> Question ---
 quiz_question = db.Table(
     'quiz_question',
     db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True),
     db.Column('question_id', db.Integer, db.ForeignKey('question.id'), primary_key=True),
 )
 
-
-# --- Викторина ---
 class Quiz(db.Model):
     __tablename__ = 'quiz'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    # связь: у Quiz есть список вопросов
     questions = db.relationship(
         'Question',
         secondary=quiz_question,
@@ -53,7 +48,6 @@ class Quiz(db.Model):
         return f'<Quiz {self.id} - {self.name}>'
 
 
-# --- Вопрос ---
 class Question(db.Model):
     __tablename__ = 'question'
     id = db.Column(db.Integer, primary_key=True)
@@ -75,16 +69,12 @@ class Question(db.Model):
         return f'<Question {self.id}: {self.question}>'
 
 
-# --- Заполнение базы тестовыми данными ---
 def db_add_new_data():
     db.drop_all()
     db.create_all()
-
-    # пользователи
     user1 = User('user1')
     user2 = User('user2')
 
-    # квизы
     quizes = [
         Quiz('QUIZ 1', user1),
         Quiz('QUIZ 2', user1),
@@ -92,7 +82,6 @@ def db_add_new_data():
         Quiz('QUIZ 4', user2)
     ]
 
-    # вопросы
     questions = [
         Question('Сколько будет 2+2*2?', '6', '8', '2', '0'),
         Question('Сколько месяцев в году имеют 28 дней?', 'Все', 'Один', 'Ни одного', 'Два'),
@@ -104,7 +93,6 @@ def db_add_new_data():
         Question('Что такое у меня в кармашке?', 'Кольцо', 'Кулак', 'Дырка', 'Бублик')
     ]
 
-    # распределяем вопросы по квизам (один вопрос может входить в несколько квизов)
     quizes[0].questions.extend([questions[0], questions[1], questions[2]])
     quizes[1].questions.extend([questions[3], questions[4], questions[5], questions[6], questions[0]])
     quizes[2].questions.extend([questions[7], questions[6], questions[5], questions[4]])
