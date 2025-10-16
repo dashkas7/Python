@@ -99,7 +99,7 @@ def view_result():
                            html_config=html_config)
 
 
-# ---------- CRUD для квизов и вопросов ----------
+
 @app.route('/quizes_view/', methods=['POST', 'GET'])
 def view_quiz_edit():
     if request.method == 'POST':
@@ -133,21 +133,19 @@ def view_quiz_edit():
                            quizes=quizes,
                            questions=questions,
                            len=len)
-
-
 @app.route('/quiz_edit/<int:id>/', methods=['GET', 'POST'])
 def quiz_edit(id):
     quiz = Quiz.query.get_or_404(id)
 
     if request.method == 'POST':
-        # смена имени
+        # изменяем название
         new_name = request.form.get('name')
         if new_name and len(new_name) > 3:
             quiz.name = new_name
 
         # добавление/удаление вопросов
-        add_q = [int(v) for k, v in request.form.items() if k.startswith('check2')]
-        del_q = [int(v) for k, v in request.form.items() if k.startswith('check1')]
+        add_q = [int(v) for k, v in request.form.items() if k.startswith('add_q')]
+        del_q = [int(v) for k, v in request.form.items() if k.startswith('del_q')]
 
         # добавить вопросы
         if add_q:
@@ -166,14 +164,42 @@ def quiz_edit(id):
         db.session.commit()
         return redirect(url_for('view_quiz_edit'))
 
-    q_ids = [q.id for q in quiz.questions]
-    from sqlalchemy import not_
-    no_questions = Question.query.filter(~Question.id.in_(q_ids)).all()
+    # список id вопросов в квизе
+    current_ids = [q.id for q in quiz.questions]
 
-    return render_template('quiz_edit.html',
-                           quiz=quiz,
-                           no_questions=no_questions,
-                           html_config=html_config)
+    # вопросы, которые не в этом квизе
+    from sqlalchemy import not_
+    available_questions = Question.query.filter(~Question.id.in_(current_ids)).all()
+
+    return render_template(
+        'quiz_edit.html',
+        quiz=quiz,
+        available_questions=available_questions,
+        html_config=html_config
+    )
+
+
+@app.route('/quiz_menu/')
+def quiz_menu():
+    quizes = Quiz.query.all()
+    return render_template('quiz_menu.html', quizes=quizes, html_config=html_config)
+
+
+@app.route('/question_edit/<int:id>/', methods=['GET', 'POST'])
+def question_edit(id):
+    q = Question.query.get_or_404(id)
+
+    if request.method == 'POST':
+        q.question = request.form.get('question')
+        q.answer = request.form.get('answer')
+        q.wrong1 = request.form.get('wrong1')
+        q.wrong2 = request.form.get('wrong2')
+        q.wrong3 = request.form.get('wrong3')
+
+        db.session.commit()
+        return redirect(url_for('view_quiz_edit'))
+
+    return render_template('question_edit.html', q=q, html_config=html_config)
 
 
 @app.route('/quiz_delete/<int:id>/')
@@ -190,35 +216,12 @@ def question_delete(id):
     return redirect('/quizes_view/')
 
 
-@app.route('/question_edit/<int:id>/', methods=['GET', 'POST'])
-def question_edit(id):
-    q = Question.query.get_or_404(id)
-
-    if request.method == 'POST':
-        question = request.form.get('question')
-        answer = request.form.get('answer')
-        wrong1 = request.form.get('wrong1')
-        wrong2 = request.form.get('wrong2')
-        wrong3 = request.form.get('wrong3')
-
-        if all([question, answer, wrong1, wrong2, wrong3]):
-            q.question = question
-            q.answer = answer
-            q.wrong1 = wrong1
-            q.wrong2 = wrong2
-            q.wrong3 = wrong3
-            db.session.commit()
-        return redirect('/quizes_view/')
-
-    return render_template('question_edit.html', q=q, html_config=html_config)
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     return '<h1 style="color:red; text-align:center"> Упс..... </h1>', 404
 
 
-# ---------- API ----------
+
 @app.route('/api/quizes/', methods=['GET'])
 def api_get():
     quizes = Quiz.query.all()

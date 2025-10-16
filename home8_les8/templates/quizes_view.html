@@ -1,20 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Админка</h2>
 
+<style>
+
+    input { width: 95%; }
+
+</style>
+
+<h2 style="text-align:center; margin-bottom:30px;">⚙ Панель администратора</h2>
 <div class="card">
-    <h3>Добавить новый квиз</h3>
+    <h3>➕ Добавить новый квиз</h3>
     <form method="POST">
         <input type="text" name="quiz" placeholder="Название квиза" required>
         <button type="submit">Добавить квиз</button>
     </form>
 </div>
 
+
 <div class="card">
-    <h3>Добавить новый вопрос</h3>
+    <h3>➕ Добавить новый вопрос</h3>
     <form method="POST">
-        <input type="text" name="question" placeholder="Вопрос" required>
+        <input  type="text" name="question" placeholder="Вопрос" required>
         <input type="text" name="answer" placeholder="Правильный ответ" required>
         <input type="text" name="wrong1" placeholder="Неправильный вариант 1" required>
         <input type="text" name="wrong2" placeholder="Неправильный вариант 2" required>
@@ -23,13 +30,38 @@
     </form>
 </div>
 
-<div class="card">
-    <h3>Существующие квизы</h3>
-    <ul>
-    {% for q in quizes %}
-        <li><b>{{ q.name }}</b> ({{ q.questions|length }} вопросов)</li>
-    {% endfor %}
-    </ul>
-</div>
 
+    <h3 style="text-align:center; font-size:25px;"> Существующие квизы</h3>
+        <div class="quiz-iteam">
+            {% for q in quizes %}
+           
+                <div class="quiz-item" style="text-align: center;">
+                    <div class="card">
+                    <h4>{{ q.name }}</h4>
+                    <p><b>{{ q.questions|length }}</b> вопроса(ов)</p> <br>
+                    <div class="btn-group">
+                        <a href="{{ url_for('quiz_edit', id=q.id) }}" class="btn">Редактировать</a>
+                        <a href="{{ url_for('quiz_delete', id=q.id) }}" class="btn delete"> Удалить</a>
+                    </div> </div>
+                </div>
+        {% endfor %}
+        </div>
+
+
+
+<div class="card">
+    <h3 style="text-align:center;font-size:25px;"> Все вопросы: </h3>
+ 
+    <ul class="question">
+    {% for q in questions %}
+    <li class="question-item">
+        <span class="q-text">{{ q.question }}</span>
+        <div class="actions">
+            <a href="{{ url_for('question_edit', id=q.id) }}" class="btn"> Редактировать</a>
+            <a href="{{ url_for('question_delete', id=q.id) }}" class="btn" style="background:#cd4848d6;"> Удалить</a>
+        </div>
+    </li>
+
+    {% endfor %}
+</ul>
 {% endblock %}

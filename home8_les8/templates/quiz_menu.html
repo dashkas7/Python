@@ -1,9 +1,24 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Меню викторин</h2>
-<ul>
-    {% for quiz in quizes %}
-        <li>{{ quiz.name }} (id: {{ quiz.id }})</li>
-    {% endfor %}
-</ul>
+<div class="card">
+    <h3>Выберите викторину</h3>
+
+    <form method="POST" action="{{ url_for('view_quiz') }}" class="quiz-choice">
+        <div class="quiz-list">
+            {% for quiz in quizes %}
+            <label class="quiz-option">
+                <input type="radio" name="quiz" value="{{ quiz.id }}" required>
+                <div class="quiz-card">
+                    <h3>{{ quiz.name }}</h3>
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <button type="submit"> Начать</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

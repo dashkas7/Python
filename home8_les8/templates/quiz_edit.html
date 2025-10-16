@@ -1,29 +1,30 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Редактирование викторины: {{ quiz.name }}</h2>
+<div class="card">
+    <h2 style="text-align: center;">Редактирование квиза</h2>
+    <form method="POST">
 
-<form method="POST">
-    <label>Название:
-        <input type="text" name="name" value="{{ quiz.name }}">
-    </label>
-    <button type="submit">Сохранить</button>
+        <label style="font-size: 19px;">Название квиза:</label>
+        <input style="width:95%;" type="text" name="name" value="{{ quiz.name }}" required>
 
-    <h3>Вопросы в этой викторине</h3>
-    {% for q in quiz.question %}
-        <label>
-            <input type="checkbox" name="check1{{ q.id }}" value="{{ q.id }}">
-            {{ q.question }}
-        </label><br>
+     <h3>➕ Добавить вопросы в квиз:</h3>
+<ul class="question-list">
+    {% for q in available_questions %}
+    <li>
+
+    <label class="question-item">
+        <span class="q-text">{{ q.question }}</span>
+        <label class="action">
+            <input type="checkbox" name="add_q{{ q.id }}" value="{{ q.id }}">
+        </label>
+    </li></label>
     {% endfor %}
+</ul>
 
-    <h3>Доступные вопросы для добавления</h3>
-    {% for q in no_questions %}
-        <label>
-            <input type="checkbox" name="check2{{ q.id }}" value="{{ q.id }}">
-            {{ q.question }}
-        </label><br>
-    {% endfor %}
-
-    <button type="submit">Обновить</button>
-</form>
+            <button type="submit"> Сохранить изменения</button>
+           <button type="submit" > <a style="color:white" href="/quizes_view/">Назад</a>
+        </button>
+    </form>
+</div>
 {% endblock %}
