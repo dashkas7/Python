@@ -9,10 +9,15 @@ class User(BaseModel):
     age: int | None = None
     
 @app.get('/',tags=['inDex get'] )
-def home(f:str='123', q:str=None):
+def home():
+    return{"hello1":"python", "hello2":"fastapi"}
+
+    
+@app.get('/users',tags=['usersGET'] )
+def users(f:str='123', q:str=None):
     return{'status':'success', "data":'data1', 'f':f, 'q':q}
 
-@app.post('/',tags=['inDex post'] )
+@app.post('/users',tags=['inDex post'] )
 def home(user: User = Depends()):
     print(user)
     return{"status":"success post", "data": {'id':1, 'user':f'{user.name} {user.age}'}}
