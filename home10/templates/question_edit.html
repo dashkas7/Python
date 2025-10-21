@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+    input { width: 95%; }
+
+</style>
+
+
+<ul class="question-list">
+    {% for q in questions %}
+    <li class="question-item">
+        <span class="q-text">{{ q.question }}</span>
+        <div class="actions">
+            <a href="{{ url_for('question_edit', id=q.id) }}" class="btn">Редактировать</a>
+            <a href="{{ url_for('question_delete', id=q.id) }}" class="btn" style="background:#d14242;"> Удалить</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="card">
+    <h2 style="text-align:center;">Редактировать вопрос</h2>
+
+    <form method="POST">
+        <label>Вопрос:</label>
+        <input type="text" name="question" value="{{ q.question }}" required>
+
+        <label>Правильный ответ:</label>
+        <input type="text" name="answer" value="{{ q.answer }}" required>
+
+        <label>Неправильный вариант 1:</label>
+        <input type="text" name="wrong1" value="{{ q.wrong1 }}" required>
+
+        <label>Неправильный вариант 2:</label>
+        <input type="text" name="wrong2" value="{{ q.wrong2 }}" required>
+
+        <label>Неправильный вариант 3:</label>
+        <input type="text" name="wrong3" value="{{ q.wrong3 }}" required>
+
+        <div style="margin-top: 20px;">
+            <button type="submit"> Сохранить</button>
+            <button type="submit">  <a style="color: white;" href="{{ url_for('view_quiz_edit') }}" > Назад</a></button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

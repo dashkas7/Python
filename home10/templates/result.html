@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="result-box" style="text-align:center;">
+    <h2 style="font-size:25px">Результат</h2>
+    <p style="font-size:20px">Правильных ответов: {{ right }} из {{ total }}</p>
+    <br>
+    <a class="btn" href="/quiz/">Пройти ещё раз</a>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from pydentic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict
 
 # USER
 
@@ -14,6 +14,6 @@ class User (UserAdd):
     model_config = ConfigDict(from_attributes=True)
  
 
-class userID(BaseModel):
+class UserId(BaseModel):
     id:int
 

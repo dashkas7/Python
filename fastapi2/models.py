@@ -1,5 +1,8 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from  sqlalchemy import ForeignKey, String, Table, Column, func
+from fastapi_filter.contrib.sqlalchemy import Filter
+from datetime import datetime
+
 
 class Model(DeclarativeBase):
     pass

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="modal">
+    <h3>Добавить вопрос</h3>
+    <form method="POST">
+        <input type="text" name="question" placeholder="Вопрос"><br>
+        <input type="text" name="answer" placeholder="Правильный ответ"><br>
+        <input type="text" name="wrong1" placeholder="Неверный ответ 1"><br>
+        <input type="text" name="wrong2" placeholder="Неверный ответ 2"><br>
+        <input type="text" name="wrong3" placeholder="Неверный ответ 3"><br>
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+{% endblock %}
