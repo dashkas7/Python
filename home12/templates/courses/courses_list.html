@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Курсы{% endblock %}
+{% block content %}
+<h2>Список курсов</h2>
+<ul>
+{% for c in courses %}
+    <li><a href="{% url 'main:course_detail' c.pk %}">{{ c }}</a></li>
+{% empty %}
+    <li>Нет курсов</li>
+{% endfor %}
+</ul>
+{% endblock %}

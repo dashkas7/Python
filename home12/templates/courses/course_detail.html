@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ course }}{% endblock %}
+{% block content %}
+<h2>{{ course }}</h2>
+<p>{{ course.description }}</p>
+<p><b>Срок:</b> {{ course.start_date }} – {{ course.end_date }}</p>
+
+<h3>Студенты:</h3>
+<ul>
+{% for s in course.student_set.all %}
+    <li>{{ s.surname }} {{ s.name }}</li>
+{% empty %}
+    <li>Нет студентов</li>
+{% endfor %}
+</ul>
+{% endblock %}

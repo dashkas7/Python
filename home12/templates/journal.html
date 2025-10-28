@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Журнал{% endblock %}
+{% block content %}
+<h2>Журнал оценок</h2>
+{% for st in students %}
+    <h3>{{ st.surname }} {{ st.name }}</h3>
+    <ul>
+    {% for g in st.grades.all %}
+        <li>{{ g.date }}: {{ g.course }} — <b>{{ g.grade }}</b></li>
+    {% empty %}
+        <li>Нет оценок</li>
+    {% endfor %}
+    </ul>
+{% empty %}
+    <p>Нет студентов</p>
+{% endfor %}
+{% endblock %}
