@@ -16,6 +16,14 @@ class Student(models.Model):
     )
     active = models.BooleanField(default=True, verbose_name="Активный")
 
+    photo = models.ImageField(
+        upload_to = 'students/',
+        blank = True,
+        null = True,
+        verbose_name="Фото"
+    )
+
+
     course = models.ManyToManyField("Course", blank=True, verbose_name="Курсы")
 
     def __str__(self):

@@ -1,12 +1,48 @@
 {% extends "base.html" %}
-{% block title %}{{ student }}{% endblock %}
+{% block title %}{{ student.surname }} {{ student.name }}{% endblock %}
 {% block content %}
-<h2>{{ student.surname }} {{ student.name }}</h2>
-<p><b>Возраст:</b> {{ student.age }}</p>
-<p><b>Пол:</b> {{ student.get_sex_display }}</p>
-<p><b>Активный:</b> {{ student.active|yesno:"Да,Нет" }}</p>
 
-<h3>Курсы:</h3>
+<div style="display:flex; 
+        align-items:center; 
+        gap:20px; 
+        background:#1e1e2f; 
+        padding:20px; 
+        border-radius:12px; 
+        box-shadow:0 4px 12px rgba(0,0,0,0.6);">
+    
+    
+    {% if student.photo %}
+        <img src="{{ student.photo.url }}" alt="Фото {{ student.name }}"
+             style="width:200px; 
+             height:200px; 
+             object-fit:cover; 
+             border-radius:12px;
+            border:3px solid #7a3fff;">
+    {% else %}
+        <div style="width:200px; 
+            height:200px; 
+            border-radius:12px; 
+            background:#2c2c3a;
+             display:flex; 
+             align-items:center; 
+             justify-content:center; 
+             font-size:48px; color:#aaa;">
+            ?
+        </div>
+    {% endif %}
+
+    <div>
+        <h2 style="color:#c9a4ff;">{{ student.surname }} {{ student.name }}</h2>
+        <p><b>Возраст:</b> {{ student.age }}</p>
+        <p><b>Пол:</b> {{ student.get_sex_display }}</p>
+        <p><b>Активный:</b> {{ student.active|yesno:"Да,Нет" }}</p>
+    </div>
+</div>
+
+<hr style="margin:30px 0; border:1px solid #333;">
+
+
+<h3 style="color:#c9a4ff;">Курсы</h3>
 <ul>
 {% for c in student.course.all %}
     <li>{{ c }}</li>
@@ -15,17 +51,19 @@
 {% endfor %}
 </ul>
 
-<h3>Оценки:</h3>
+
+<h3 style="color:#c9a4ff;">Оценки</h3>
 <table>
-<tr><th>Курс</th><th>Оценка</th><th>Дата</th></tr>
-{% for g in student.grades.all %}
-    <tr>
-        <td>{{ g.course }}</td>
-        <td>{{ g.grade }}</td>
-        <td>{{ g.date }}</td>
-    </tr>
-{% empty %}
-    <tr><td colspan="3">Нет оценок</td></tr>
-{% endfor %}
+    <tr><th>Курс</th><th>Оценка</th><th>Дата</th></tr>
+    {% for g in student.grades.all %}
+        <tr>
+            <td>{{ g.course }}</td>
+            <td>{{ g.grade }}</td>
+            <td>{{ g.date }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="3">Нет оценок</td></tr>
+    {% endfor %}
 </table>
+
 {% endblock %}

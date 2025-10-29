@@ -2,12 +2,41 @@
 {% block title %}Студенты{% endblock %}
 {% block content %}
 <h2>Список студентов</h2>
-<ul>
+<ul style="list-style:none; padding:0;">
 {% for s in students %}
-    <li>
-        <a href="{% url 'main:student_detail' s.pk %}">
-            {{ s.surname }} {{ s.name }}
-        </a> — {{ s.age }} лет
+    <li style="display:flex; 
+                align-items:center; 
+                margin-bottom:15px; 
+                background:#1e1e2f; 
+                padding:10px; 
+                border-radius:8px;">
+        {% if s.photo %}
+            <img src="{{ s.photo.url }}" alt="Фото {{ s.name }}" 
+                 style="width:60px; 
+                 height:60px; 
+                 object-fit:cover; 
+                 border-radius:50%; 
+                 margin-right:15px; 
+                 border:2px solid #7a3fff;">
+        {% else %}
+            <div style="width:60px; 
+                    height:60px; 
+                    border-radius:50%; 
+                    background:#2c2c3a; 
+                    margin-right:15px; 
+                    display:flex; 
+                    align-items:center; 
+                    justify-content:center;
+                    color:#aaa;">
+                ?
+            </div>
+        {% endif %}
+        <div>
+            <a href="{% url 'main:student_detail' s.pk %}" style="font-weight:bold; color:#c9a4ff;">
+                {{ s.surname }} {{ s.name }}
+            </a><br>
+            <span style="color:#bbb;">{{ s.age }} лет</span>
+        </div>
     </li>
 {% empty %}
     <li>Нет студентов</li>
