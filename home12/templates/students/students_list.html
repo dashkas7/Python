@@ -37,8 +37,8 @@
                 {{ s.surname }} {{ s.name }}
             </a><br>
             <span style="color:#bbb;">{{ s.age }} лет</span>
-           <br> <a href="{% url 'main:student_edit' s.pk %}" class="btn">Редактировать</a>
-            <a href="{% url 'main:student_delete' s.pk %}" class="btn-danger">Удалить</a>
+           <br> <a href="{% url 'main:student_edit' s.pk %}" >Редактировать</a>
+            <a href="{% url 'main:student_delete' s.pk %}" >Удалить</a>
         </div>
     </li>
 {% empty %}
