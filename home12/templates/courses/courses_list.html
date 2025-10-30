@@ -2,17 +2,18 @@
 {% block title %}Курсы{% endblock %}
 {% block content %}
 <h2>Список курсов</h2>
-<a href="{% url 'main:course_add' %}" class="btn"> + Добавить курс</a>
+<a href="{% url 'main:course_add' %}" class="btn">+ Добавить курс</a>
 <ul>
-{% for c in courses %}
+  {% for c in courses %}
     <li style="margin-bottom:15px;">
-         <a href="{% url 'main:course_detail' c.pk %}" style="color:#c9a4ff; text-decoration:none; font-weight:bold;"></a>
+      <a href="{% url 'main:course_detail' c.pk %}" style="color:#c9a4ff; font-weight:bold; text-decoration:none;">
         {{ c }}
-        <br><a href="{% url 'main:course_edit' c.pk %}" class="btn">Редактировать</a>
-        <a href="{% url 'main:course_delete' c.pk %}" class="btn-danger">Удалить</a>
+      </a><br>
+      <a href="{% url 'main:course_edit' c.pk %}" class="btn">Редактировать</a>
+      <a href="{% url 'main:course_delete' c.pk %}" class="btn-danger">Удалить</a>
     </li>
-{% empty %}
+  {% empty %}
     <li>Нет курсов</li>
-{% endfor %}
+  {% endfor %}
 </ul>
 {% endblock %}
