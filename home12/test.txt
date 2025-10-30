@@ -1,7 +1,0 @@
-Для админки
-login: Dashkas777
-password: 123456789
-
-Как обычный пользователь:
-login: Dashaaa
-password: 12321

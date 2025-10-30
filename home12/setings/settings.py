@@ -3,9 +3,9 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'dev-secret'
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = 'dev-secret'  
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "<ТВОЙ_ВНЕШНИЙ_IP>", "<ТВОЙ_ДОМЕН>"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,6 +48,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'setings.wsgi.application'
 ASGI_APPLICATION = 'setings.asgi.application'
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -60,13 +61,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']  
+STATIC_ROOT = BASE_DIR / "staticfiles"   
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/'   
-LOGOUT_REDIRECT_URL = '/'  
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LOGIN_REDIRECT_URL = '/'   
+LOGOUT_REDIRECT_URL = '/'
