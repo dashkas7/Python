@@ -1,17 +1,43 @@
 {% extends "base.html" %}
 {% block title %}Журнал{% endblock %}
 {% block content %}
-<h2>Журнал оценок</h2>
-{% for st in students %}
-    <h3>{{ st.surname }} {{ st.name }}</h3>
-    <ul>
-    {% for g in st.grades.all %}
-        <li>{{ g.date }}: {{ g.course }} — <b>{{ g.grade }}</b></li>
-    {% empty %}
-        <li>Нет оценок</li>
-    {% endfor %}
-    </ul>
-{% empty %}
-    <p>Нет студентов</p>
-{% endfor %}
+<div style="background:#1e1e2f; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.6);">
+    <h2 style="color:#c9a4ff;">Журнал оценок</h2>
+    <table style="width:100%; border-collapse:collapse; margin-top:20px;">
+        <thead>
+            <tr style="background:#2c2c3a; color:#c9a4ff;">
+                <th style="padding:10px; border:1px solid #333;">Студент</th>
+                <th style="padding:10px; border:1px solid #333;">Курс</th>
+                <th style="padding:10px; border:1px solid #333;">Оценка</th>
+                <th style="padding:10px; border:1px solid #333;">Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                {% for grade in student.grades.all %}
+                    <tr style="background:#252538; color:#eee;">
+                        <td style="padding:10px; border:1px solid #333;">
+                            <a href="{% url 'main:student_detail' student.pk %}" 
+                               style="color:#c9a4ff; text-decoration:none;">
+                                {{ student.surname }} {{ student.name }}
+                            </a>
+                        </td>
+                        <td style="padding:10px; border:1px solid #333;">
+                            <a href="{% url 'main:course_detail' grade.course.pk %}" 
+                               style="color:#9b7cff; text-decoration:none;">
+                                {{ grade.course.get_name_display }} №{{ grade.course.course_num }}
+                            </a>
+                        </td>
+                        <td style="padding:10px; border:1px solid #333;">{{ grade.grade }}</td>
+                        <td style="padding:10px; border:1px solid #333;">{{ grade.date }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4" style="padding:10px; text-align:center; color:#888;">Нет оценок</td></tr>
+                {% endfor %}
+            {% empty %}
+                <tr><td colspan="4" style="padding:10px; text-align:center; color:#888;">Нет студентов</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

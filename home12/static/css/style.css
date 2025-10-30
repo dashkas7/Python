@@ -132,3 +132,30 @@ button:hover {
     background: linear-gradient(90deg, #9d7dff, #7a3fff);
 }
 
+.btn {
+    background: linear-gradient(90deg, #7a3fff, #9d7dff);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.btn:hover {
+    background: linear-gradient(90deg, #9d7dff, #7a3fff);
+}
+.btn-danger {
+    background: #ff4d6d;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-left: 5px;
+}
+.logout-btn {
+    background:none;
+    border:none;
+    color:#c9a4ff;
+    cursor:pointer;
+    font-weight:bold;
+}

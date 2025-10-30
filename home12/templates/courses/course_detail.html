@@ -1,16 +1,24 @@
 {% extends "base.html" %}
-{% block title %}{{ course }}{% endblock %}
-{% block content %}
-<h2>{{ course }}</h2>
-<p>{{ course.description }}</p>
-<p><b>Срок:</b> {{ course.start_date }} – {{ course.end_date }}</p>
+{% block title %}{{ course.get_name_display }} - {{ course.course_num }}{% endblock %}
 
-<h3>Студенты:</h3>
+{% block content %}
+<h2>{{ course.get_name_display }} (Курс №{{ course.course_num }})</h2>
+<p><b>Дата начала:</b> {{ course.start_date }}</p>
+<p><b>Дата окончания:</b> {{ course.end_date }}</p>
+<p><b>Описание:</b> {{ course.description }}</p>
+
+<h3>Студенты на курсе:</h3>
 <ul>
-{% for s in course.student_set.all %}
-    <li>{{ s.surname }} {{ s.name }}</li>
-{% empty %}
-    <li>Нет студентов</li>
-{% endfor %}
+    {% for student in course.student_set.all %}
+        <li>
+            <a href="{% url 'main:student_detail' student.pk %}">
+                {{ student.surname }} {{ student.name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Пока нет студентов</li>
+    {% endfor %}
 </ul>
+
+<a href="{% url 'main:courses' %}" class="btn">⬅ Назад к списку курсов</a>
 {% endblock %}

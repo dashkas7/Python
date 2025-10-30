@@ -2,6 +2,7 @@
 {% block title %}Студенты{% endblock %}
 {% block content %}
 <h2>Список студентов</h2>
+<a href="{% url 'main:student_add' %}" class="btn"> + Добавить студента</a>
 <ul style="list-style:none; padding:0;">
 {% for s in students %}
     <li style="display:flex; 
@@ -36,6 +37,8 @@
                 {{ s.surname }} {{ s.name }}
             </a><br>
             <span style="color:#bbb;">{{ s.age }} лет</span>
+           <br> <a href="{% url 'main:student_edit' s.pk %}" class="btn">Редактировать</a>
+            <a href="{% url 'main:student_delete' s.pk %}" class="btn-danger">Удалить</a>
         </div>
     </li>
 {% empty %}
